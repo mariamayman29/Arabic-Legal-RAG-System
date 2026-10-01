@@ -1,0 +1,39 @@
+[project]
+name = "legal-rag"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "mariamayman29", email = "mariamayman292003@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "bentoml>=1.4.39",
+    "dvc>=3.67.1",
+    "mlflow>=3.16.1",
+    "pdfplumber>=0.11.10",
+    "pydantic-settings>=2.15.0",
+    "python-dotenv>=1.2.3",
+    "qdrant-client>=1.19.1",
+    "sentence-transformers>=6.1.0",
+    "torch>=2.14.0",
+]
+
+[project.scripts]
+legal-rag = "legal_rag:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.workspace]
+members = [
+    "eval",
+]

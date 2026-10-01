@@ -1,0 +1,23 @@
+[project]
+name = "eval"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "mariamayman29", email = "mariamayman292003@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "datasets>=5.0.1",
+    "langchain-google-genai>=4.4.0",
+    "langchain-huggingface>=1.2.2",
+    "python-dotenv>=1.2.3",
+    "ragas>=0.4.3",
+    "sentence-transformers>=6.1.0",
+]
+
+[project.scripts]
+eval = "eval:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
