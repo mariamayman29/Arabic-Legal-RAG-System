@@ -1,5 +1,6 @@
 import pytest
 from pydantic import ValidationError
+
 from legal_rag.schemas import ArticleSchema
 from legal_rag.utils.config import settings
 

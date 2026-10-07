@@ -1,14 +1,19 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
 
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=Path(__file__).parent.parent.parent / ".env", env_file_encoding="utf-8",extra="ignore")
+    PROJECT_ROOT: Path = Path(__file__).resolve().parents[3]
+    RAW_DATA_PATH: Path = PROJECT_ROOT / "data" / "civil_code.pdf"
+    RAW_CORPUS_PATH: Path = PROJECT_ROOT / "data" / "raw_corpus.json"
+    PROCESSED_CORPUS_PATH: Path = PROJECT_ROOT / "data" / "corpus.json"
+    LOG_PATH: Path = PROJECT_ROOT / "logs" / "corpus_build.log"
+    OCR_ZOOM_FACTOR: float = 2
+    REPEALED_TEXT_AR: str = "(هذه المادة ملغاه)"
+    REPEALED_TEXT_EN: str = "(this article has been repealed)"
 
-    RAW_DATA_PATH: Path = Path("data/raw")
-    PROCESSED_DATA_PATH: Path = Path("data/corpus.json")
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    OCR_ZOOM_FACTOR: float = 2.0
-    REPEALED_TEXT_AR: str = "(هذاالقانون ملغى)"
-    REPEALED_TEXT_EN: str = "(this law has been repealed)"
 
 settings = Settings()
