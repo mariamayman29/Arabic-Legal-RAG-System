@@ -1,4 +1,8 @@
 /.venv
 .env
-data/
 mlruns /
+__pycache__
+.pytest_cache/
+.ruff_cache/
+.cache/
+Logs/

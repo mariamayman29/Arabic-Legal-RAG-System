@@ -1,0 +1,22 @@
+stages:
+  extract_raw_corpus:
+    cmd: uv run python -m legal_rag.ingestion.build_corpus
+    deps:
+      - data/civil_code.pdf
+      - src/legal_rag/ingestion/build_corpus.py
+      - src/legal_rag/ingestion/trace_hierarchy.py
+      - src/legal_rag/ingestion/ocr_engine.py
+      - src/legal_rag/ingestion/normalize_text.py
+      - src/legal_rag/schemas.py
+    outs:
+      - data/raw_corpus.json
+
+  postprocess_corpus:
+    cmd: uv run python -m legal_rag.ingestion.process_corpus
+    deps:
+      - data/raw_corpus.json
+      - src/legal_rag/ingestion/process_corpus.py
+      - src/legal_rag/ingestion/normalize_text.py
+      - src/legal_rag/schemas.py
+    outs:
+      - data/corpus.json

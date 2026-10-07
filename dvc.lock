@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  extract_raw_corpus:
+    cmd: uv run python -m legal_rag.ingestion.build_corpus
+    deps:
+    - path: data/civil_code.pdf
+      hash: md5
+      md5: 5086ef5f16f15d856278db943e58e948
+      size: 2599703
+    - path: src/legal_rag/ingestion/build_corpus.py
+      hash: md5
+      md5: ee159edc416f99b03594ea34762eefe1
+      size: 8654
+    - path: src/legal_rag/ingestion/normalize_text.py
+      hash: md5
+      md5: 2ebe6c0684e409338e703625ae42b040
+      size: 1692
+    - path: src/legal_rag/ingestion/ocr_engine.py
+      hash: md5
+      md5: 0a94f3d726e9e09c0cf1884361abdb0a
+      size: 4135
+    - path: src/legal_rag/ingestion/trace_hierarchy.py
+      hash: md5
+      md5: 3e9065e7877f6735de538c3d50301ba5
+      size: 5209
+    - path: src/legal_rag/schemas.py
+      hash: md5
+      md5: 8a54ac9e8825c915396cd8f83fb9bab0
+      size: 2826
+    outs:
+    - path: data/raw_corpus.json
+      hash: md5
+      md5: c0deff07110e07e88c263d4a00a96dbe
+      size: 1298222
+  postprocess_corpus:
+    cmd: uv run python -m legal_rag.ingestion.process_corpus
+    deps:
+    - path: data/raw_corpus.json
+      hash: md5
+      md5: c0deff07110e07e88c263d4a00a96dbe
+      size: 1298222
+    - path: src/legal_rag/ingestion/normalize_text.py
+      hash: md5
+      md5: b250eed6b95dcf1ee20eb4037c124e4d
+      size: 1715
+    - path: src/legal_rag/ingestion/process_corpus.py
+      hash: md5
+      md5: 2df32581e3e6e481d4da6126752093d4
+      size: 25547
+    - path: src/legal_rag/schemas.py
+      hash: md5
+      md5: de12e0414a9f277b598094c1e2f0e4ae
+      size: 2365
+    outs:
+    - path: data/corpus.json
+      hash: md5
+      md5: 1ad7ba775316ffea5e9a2e4343227102
+      size: 1298656
