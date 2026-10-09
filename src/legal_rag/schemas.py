@@ -1,4 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+import uuid
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field, computed_field, model_validator
 
 from legal_rag.utils.config import settings
 
@@ -75,3 +78,59 @@ class ArticleSchema(BaseModel):
                 f"Invalid citation '{self.citation}'. Expected '{expected}'."
             )
         return self
+
+
+class ChunkMetadata(BaseModel):
+    article_number: int = Field(..., ge=1)
+    language: Literal["en", "ar"]
+    strategy: str = Field(..., description="Chunking strategy name")
+    chunk_index: int = Field(0, ge=0)
+    total_chunks: int = Field(1, ge=1)
+    book: str | None = None
+    chapter: str | None = None
+    section: str | None = None
+    topic: str | None = None
+    subtopic: str | None = None
+    source_page: int = Field(..., ge=1)
+    is_repealed: bool = False
+    citation: str
+
+
+class ChunkSchema(BaseModel):
+    chunk_id: str = Field(
+        ...,
+        description="Deterministic unique ID, e.g., 'art_12_en_0'",
+    )
+    content: str = Field(
+        ...,
+        min_length=1,
+        description="The core article body text used for LLM synthesis.",
+    )
+    context_header: str = Field(
+        default="",
+        description="Prepended breadcrumbs (e.g., Book > Chapter > Section).",
+    )
+    metadata: ChunkMetadata
+
+    @computed_field
+    @property
+    def point_id(self) -> str:
+        return str(uuid.uuid5(uuid.NAMESPACE_DNS, self.chunk_id))
+
+    @property
+    def full_text(self) -> str:
+        if self.context_header:
+            return f"{self.context_header}\n{self.content}".strip()
+        return self.content
+
+    def get_embedding_text(self, prefix: str = "") -> str:
+        base_text = self.full_text
+        return f"{prefix}{base_text}" if prefix else base_text
+
+    def to_qdrant_payload(self) -> dict:
+        return {
+            "chunk_id": self.chunk_id,
+            "content": self.content,
+            "context_header": self.context_header,
+            **self.metadata.model_dump(),
+        }

@@ -1,0 +1,625 @@
+[
+  {
+    "question": "In the Egyptian Civil Code, what sources of law must a judge consult if there is no applicable legislative provision?",
+    "ground_truth": "If there is no applicable legislative provision, the judge decides according to custom, followed by the principles of Islamic Law, and finally according to the principles of natural justice and the rules of equity.",
+    "expected_contexts": [
+      "Provisions of laws govern all matters to which these provisions apply in letter or spirit. In the absence of a provision of a law that is applicable, the Judge will decide according to custom and in the absence of custom in accordance with the principles of Moslem Law. In the absence of such principles, the Judge will apply the principles of natural justice and the rules of equity."
+    ],
+    "metadata": {
+      "target_articles": [1],
+      "language": "en",
+      "topic": "Laws and Rights",
+      "query_type": "direct_factual"
+    }
+  },
+  {
+    "question": "Under what specific conditions is the exercise of a legal right deemed unlawful?",
+    "ground_truth": "The exercise of a right is considered unlawful if its sole intent is to cause harm to another party, if the desired benefit is completely out of proportion to the harm inflicted, or if the desired benefit itself is unlawful.",
+    "expected_contexts": [
+      "The exercise of a right is considered unlawful in the following cases: a) if the sole aim thereof is to harm another person; b) if the benefit it is desired to realize is out of proportion to the harm caused thereby to another person; c) if the benefit it is desired to realize is unlawful."
+    ],
+    "metadata": {
+      "target_articles": [5],
+      "language": "en",
+      "topic": "Laws and Rights",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "Which jurisdiction's laws govern real rights over immovables versus movables?",
+    "ground_truth": "Real rights over immovables are governed by the law of the place where the immovable is located, whereas movables are governed by the law of the location where the movable was situated when the event resulting in the acquisition or loss of the right took place.",
+    "expected_contexts": [
+      "Possession, ownership and other real rights are regulated, as regards immovables, by the law of the place in which the immovable is situate, and as regards movables, by the law of the place where the movable was situate at the time when the event occurred which resulted in the acquisition or loss of possession, ownership or other real rights."
+    ],
+    "metadata": {
+      "target_articles": [18],
+      "language": "en",
+      "topic": "Conflicts of law as to place",
+      "query_type": "comparative"
+    }
+  },
+  {
+    "question": "Can foreign legal rules be disregarded in Egyptian courts if they contradict domestic public order?",
+    "ground_truth": "Foreign legal rules applicable under conflict of law provisions shall not be enforced if they violate public policy or morality in Egypt.",
+    "expected_contexts": [
+      "The provisions of a foreign law applicable by virtue of the preceding articles shall not be applied if these provisions are contrary to public policy or to morality in Egypt."
+    ],
+    "metadata": {
+      "target_articles": [28],
+      "language": "en",
+      "topic": "Conflicts of law as to place",
+      "query_type": "boolean_rule"
+    }
+  },
+  {
+    "question": "At what age is legal majority reached under Egyptian law, and what status does it grant?",
+    "ground_truth": "Majority is reached at twenty-one completed Gregorian calendar years. Individuals attaining majority with full mental faculties and without legal disability have complete legal capacity to exercise civil rights.",
+    "expected_contexts": [
+      "All persons attaining majority in possession of their mental faculties and not under legal disability, have full legal capacity to exercise their civil rights. The majority of a person is fixed at twenty one years completed in accordance with the Gregorian calendar."
+    ],
+    "metadata": {
+      "target_articles": [44],
+      "language": "en",
+      "topic": "Individuals",
+      "query_type": "definition"
+    }
+  },
+  {
+    "question": "كيف يتم إلغاء نص تشريعي قائم وفقاً للقانون المدني المصري؟",
+    "ground_truth": "لا يلغى النص التشريعي إلا بتشريع لاحق ينص صراحة على الإلغاء، أو يشتمل على حكم يتعارض مع نص التشريع القديم، أو يعيد تنظيم الموضوع الذي سبق أن قرر قواعده ذلك التشريع.",
+    "expected_contexts": [
+      "لا يجوز الغاء نص تشريعي الا بتشريع لاحق ينص صراحة علي هذا الالغاء، او يشتمل علي نص يتعارض مع نص التشريع القديم، او ينظم من جديد الموضوع الذي سبق ان قرر قواعده ذلك التشريع."
+    ],
+    "metadata": {
+      "target_articles": [2],
+      "language": "ar",
+      "topic": "Laws and Rights",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "ما هو القانون الحاكم لتكييف العلاقات وتحديد طبيعتها عند تنازع القوانين؟",
+    "ground_truth": "القانون المصري هو المرجع الوحيد في تكييف العلاقات القانونية لتحديد نوعها وتعيين القانون الواجب التطبيق عند تنازع القوانين.",
+    "expected_contexts": [
+      "القانون المصري هو المرجع في تكييف العلاقات عندما يطلب تحديد نوع هذه العلاقات في قضية تتنازع فيها القوانين؛ لمعرفة القانون الواجب تطبيقه من بينها."
+    ],
+    "metadata": {
+      "target_articles": [10],
+      "language": "ar",
+      "topic": "Conflicts of law as to place",
+      "query_type": "direct_factual"
+    }
+  },
+  {
+    "question": "أي قانون يسري على الالتزام بدفع النفقة بين الأقارب؟",
+    "ground_truth": "يسري على الالتزام بالنفقة بين الأقارب قانون الدولة التي ينتمي إليها المدين بتلك النفقة.",
+    "expected_contexts": [
+      "يسري علي اللالتزام بالنفقة فيما بين الاقارب قانون المدين بها."
+    ],
+    "metadata": {
+      "target_articles": [15],
+      "language": "ar",
+      "topic": "Conflicts of law as to place",
+      "query_type": "direct_factual"
+    }
+  },
+  {
+    "question": "متى تبدأ شخصية الإنسان القانونية ومتى تنتهي، وما وضع الحمل المستكن؟",
+    "ground_truth": "تبدأ شخصية الإنسان بتمام ولادته حياً وتنقضي بموته، في حين يتولى القانون تحديد الحقوق المقررة للحمل المستكن.",
+    "expected_contexts": [
+      "تبدا شخصية الانسان بتمام ولادته حيا، وتنتهي بموته. ومع ذلك فحقوق الحمل المستكن يعينها القانون."
+    ],
+    "metadata": {
+      "target_articles": [29],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "definition"
+    }
+  },
+  {
+    "question": "من الذي يعد فاقداً للتمييز في القانون المدني وما هو سن انعدام التمييز؟",
+    "ground_truth": "يكون فاقداً للتمييز وغير أهل لمباشرة حقوقه المدنية من كان فاقداً له بسبب صغر السن أو عته أو جنون، ويعد فاقداً للتمييز حكماً كل من لم يبلغ سن السابعة.",
+    "expected_contexts": [
+      "لا يكون اهلا لمباشرة حقوقه المدنية من كان فاقد التمييز لصغر في السن او عته او جنون. وكل من لم يبلغ السابعة يعتبر فاقدا للتمييز."
+    ],
+    "metadata": {
+      "target_articles": [45],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "conditional"
+    }
+  }, 
+    {
+    "question": "What law governs a marriage involving conflict of laws if one spouse is Egyptian, and what exception exists regarding capacity?",
+    "ground_truth": "Under Articles 12, 13, and 14 of the Egyptian Civil Code, while the validity of marriage is generally governed by each spouse's national law and its effects by the husband's national law, if one of the spouses is an Egyptian at the time of marriage, Egyptian law alone applies to all effects. The sole exception is the legal capacity to marry, which remains subject to each spouse's national law.",
+    "expected_contexts": [
+      "The fundamental conditions relating to the validity of marriage are governed by the (national) law of each of the two spouses.",
+      "The effects of marriage, including its effects upon the property of the spouses, are regulated by the law of the country to which the husband belongs at the time of conclusion of the marriage. Repudiation of marriage is governed by the law of the country to which the husband belongs at the time of repudiation, whereas divorce and separation are governed by the law of the country to which the husband belongs at the time of the commencement of the legal proceedings.",
+      "If, in the cases provided for in the two preceding articles one of the two spouses is an Egyptian at the time of the conclusion of the marriage, Egyptian law alone shall apply except as regards the legal capacity to marry."
+    ],
+    "metadata": {
+      "target_articles": [12, 13, 14],
+      "language": "en",
+      "topic": "Conflicts of law as to place",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "ما هو القانون الواجب التطبيق على صحة الزواج وآثاره إذا كان أحد الزوجين مصرياً وقت انعقاده، وما هو الاستثناء المتعلق بالأهلية؟",
+    "ground_truth": "وفقاً للمواد 12 و13 و14 من القانون المدني المصري، تخضع الشروط الموضوعية للزواج لقانون كل من الزوجين، وتخضع آثاره لقانون دولة الزوج، ولكن إذا كان أحد الزوجين مصرياً وقت الانعقاد يسري القانون المصري وحده على جميع الآثار، فيما عدا الأهلية للزواج التي تظل خاضعة لقانون كل من الزوجين.",
+    "expected_contexts": [
+      "يرجع في الشروط الموضوعية لصحة الزواج الي قانون كل من الزوجين.",
+      "يسري قانون الدولة التي ينتمي اليها الزوج وقت انعقاد الزواج علي الاثار التي يرتبها عقد الزواج، بما في ذلك من اثر بالنسبة الي المال. اما الطلاق فيسري عليه قانون الدولة التي ينتمي اليها الزوج وقت الطلاق، ويسري علي التطليق والانفصال قانون الدولة التي ينتمي اليها الزوج وقت رفع الدعوي.",
+      "في الاحوال المنصوص عليها في المادتين السابقتين اذا كان احد الزوجين مصريا وقت انعقاد الزواج، يسري القانون المصري وحده، فيما عدا شرط الاهلية للزواج."
+    ],
+    "metadata": {
+      "target_articles": [12, 13, 14],
+      "language": "ar",
+      "topic": "Conflicts of law as to place",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "How does legal capacity progress based on age under the Egyptian Civil Code, from absence of discretion to full majority?",
+    "ground_truth": "Under Articles 44, 45, and 46, a person who has not attained seven years is considered devoid of discretion and incapable of exercising civil rights. A person who reaches seven but has not attained majority has limited legal capacity. Full legal capacity to exercise civil rights is attained upon reaching majority at twenty-one completed Gregorian calendar years with sound mental faculties and without legal disability.",
+    "expected_contexts": [
+      "A person devoid of discretion, owing to youth, feeble mindedness or insanity is incapable of exercising his civil rights. A person who has not attained the age of seven is considered devoid of discretion.",
+      "A person who has reached the age of discretion but has not attained majority and a person who has attained his majority but is a prodigal or an imbecile, has a limited legal capacity according to the provisions of the law.",
+      "All persons attaining majority in possession of their mental faculties and not under legal disability, have full legal capacity to exercise their civil rights. The majority of a person is fixed at twenty one years completed in accordance with the Gregorian calendar."
+    ],
+    "metadata": {
+      "target_articles": [44, 45, 46],
+      "language": "en",
+      "topic": "Individuals",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "ما هو التدرج القانوني للأهلية والتمييز بناءً على سن الشخص وفقاً للقانون المدني المصري؟",
+    "ground_truth": "وفقاً للمواد 44 و45 و46 من القانون المدني، يعتبر الشخص فاقداً للتمييز وعديم الأهلية لمباشرة حقوقه المدنية إذا لم يبلغ السابعة من عمره. وإذا بلغ سن التمييز (السابعة) ولم يبلغ سن الرشد، يكون ناقص الأهلية. وعند بلوغه إحدى وعشرين سنة ميلادية كاملة متمتعاً بقواه العقلية دون حجر، يكتسب كامل الأهلية لمباشرة حقوقه المدنية.",
+    "expected_contexts": [
+      "لا يكون اهلا لمباشرة حقوقه المدنية من كان فاقد التمييز لصغر في السن او عته او جنون. وكل من لم يبلغ السابعة يعتبر فاقدا للتمييز.",
+      "كل من بلغ سن التمييز ولم يبلغ سن الرشد وكل من بلغ سن الرشد وكان سفيها او ذا غفلة يكون ناقص الاهلية وفقا لما يقرره القانون.",
+      "كل شخص بلغ سن الرشد متمتعا بقواه العقلية، ولم يحجر عليه، يكون كامل الاهلية لمباشرة حقوقه المدنية. وسن الرشد هي احدي وعشرون سنة ميلادية كاملة."
+    ],
+    "metadata": {
+      "target_articles": [44, 45, 46],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "Can an individual legally renounce or modify the rules governing their legal capacity?",
+    "ground_truth": "No person can renounce their legal capacity or modify the rules relating to it under any circumstances.",
+    "expected_contexts": [
+      "No person can renounce his legal capacity or modify the rules relating thereto."
+    ],
+    "metadata": {
+      "target_articles": [48],
+      "language": "en",
+      "topic": "Individuals",
+      "query_type": "boolean_rule"
+    }
+  },
+  {
+    "question": "What remedies are available to an individual whose rights inherent in personality have been unlawfully infringed?",
+    "ground_truth": "A person whose inherent personality rights have been unlawfully infringed has the legal right to demand the immediate cessation of the infringement and seek compensation for any damage sustained.",
+    "expected_contexts": [
+      "A person whose rights inherent in his personality have been unlawfully infringed, shall have the right to demand the cessation of the infringement and compensation for any damage sustained thereby."
+    ],
+    "metadata": {
+      "target_articles": [50],
+      "language": "en",
+      "topic": "Individuals",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "What legal actions can be taken if another party unlawfully uses a person's name or disputes their right to use it?",
+    "ground_truth": "Anyone whose right to use their name is disputed without justification, or whose name has been unlawfully usurped by another, may demand the cessation of the infringement along with compensation for resulting damages.",
+    "expected_contexts": [
+      "A person whose right to the use of his name is unlawfully disputed by another, or a person whose name is unlawfully used by another shall have the right to demand cessation of the infringement and compensation for any damage sustained thereby."
+    ],
+    "metadata": {
+      "target_articles": [51],
+      "language": "en",
+      "topic": "Individuals",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "Which entities are explicitly recognized as juristic persons under the Egyptian Civil Code?",
+    "ground_truth": "Juristic persons include the state, provinces, towns, and villages; public administrations and institutions endowed with juristic personality; recognized religious groups; wakfs; commercial and civil companies; recognized associations and foundations; and any group of persons or property recognized as such by law.",
+    "expected_contexts": [
+      "Juristic persons are: 1. The state, the provinces (mudirias), towns and villages in accordance with the provisions fixed by law; administrations, departments and other public institutions to which the law has granted the status of juristic persons. 2. Religious groups and communities which the state has recognized as juristic persons. 3. Wakfs. 4. Commercial and civil corporations. 5. Associations and foundations created in accordance with the subsequent provisions hereof. 6. Any group of persons or properties recognized as a juristic persons by virtue of a provision of the law."
+    ],
+    "metadata": {
+      "target_articles": [52],
+      "language": "en",
+      "topic": "Juristic persons",
+      "query_type": "enumeration"
+    }
+  },
+  {
+    "question": "What legal attributes and rights are granted to a juristic person, and where is its legal domicile located?",
+    "ground_truth": "A juristic person enjoys all rights except those inherent to a natural human being. It possesses its own patrimonium, legal capacity within statutory limits, the right to litigate, and a legal representative. Its domicile is where its seat of management is situated, or its local management seat in Egypt for foreign companies operating domestically.",
+    "expected_contexts": [
+      "A juristic person enjoys, within the limits established by law, all rights, with the exception of those rights which are inherent in the nature of an individual. A juristic person has: a) its own patrimonium; b) legal capacity, within the limits fixed by its constitution or established by law; c) the right to sue; d) its own domicile. This domicile is the place where its seat of management is situate. A corporation whose seat of management is situate abroad but operates in Egypt, is deemed, in accordance with internal law, to have its seat of management at the place where its local seat of management is situate. A juristic person has a representative to express its will."
+    ],
+    "metadata": {
+      "target_articles": [53],
+      "language": "en",
+      "topic": "Juristic persons",
+      "query_type": "definition"
+    }
+  },
+  {
+    "question": "هل يجوز للشخص التنازل عن أهليته القانونية أو التعديل في أحكامها بأي اتفاق؟",
+    "ground_truth": "لا يجوز لأي شخص النزول عن أهليته القانونية ولا التعديل في أي حكم من أحكامها المقررة بنص القانون.",
+    "expected_contexts": [
+      "ليس لاحد النزول عن اهليته ولا التعديل في احكامها."
+    ],
+    "metadata": {
+      "target_articles": [48],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "boolean_rule"
+    }
+  },
+  {
+    "question": "ما هي الطلبات والوسائل القانونية المتاحة لشخص وقع عليه اعتداء غير مشروع في حق ملازم لشخصيته؟",
+    "ground_truth": "يحق لكل من وقع عليه اعتداء غير مشروع في حق من الحقوق الملازمة لشخصيته أن يطلب من القضاء وقف هذا الاعتداء، مع المطالبة بالتعويض عما لحقه من ضرر ناتج عن ذلك الاعتداء.",
+    "expected_contexts": [
+      "لكل من وقع عليه اعتداء غير مشروع في حق من الحقوق الملازمة لشخصيته، ان يطلب وقف هذا الاعتداء مع التعويض عما يكون قد لحقه من ضرر."
+    ],
+    "metadata": {
+      "target_articles": [50],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "ما هو الإجراء القانوني المتاح عند انتحال شخص لاسم غيره أو منازعته في استعمال اسمه دون مبرر؟",
+    "ground_truth": "يجوز لكل من نازعه الغير في استعمال اسمه دون مبرر قانوني أو انتحل اسمه بغير حق أن يطلب وقف هذا الاعتداء، بالإضافة إلى طلب التعويض عما أصابه من ضرر.",
+    "expected_contexts": [
+      "لكل من نازعه الغير في استعمال اسمه بلا مبرر، ومن انتحل الغير اسمه دون حق، ان يطلب وقف هذا الاعتداء مع التعويض عما يكون قد لحقه من ضرر."
+    ],
+    "metadata": {
+      "target_articles": [51],
+      "language": "ar",
+      "topic": "Individuals",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "ما هي الكيانات والهيئات التي تعتبر أشخاصاً اعتبارية بنص القانون المدني المصري؟",
+    "ground_truth": "الأشخاص الاعتبارية هي: الدولة والمديريات والمدن والقرى والمنشآت العامة؛ الهيئات والطوائف الدينية المعترف بها؛ الأوقاف؛ الشركات التجارية والمدنية؛ الجمعيات والمؤسسات المشهرة؛ وكل مجموعة من الأشخاص أو الأموال يقرر لها القانون الشخصية الاعتبارية.",
+    "expected_contexts": [
+      "الاشخاص الاعتبارية هي: الدولة وكذلك المديريات والمدن والقري بالشروط التي يحددها القانون، والادارات والمصالح وغيرها من المنشات العامة التي يمنحها القانون شخصية اعتبارية. الهيئات والطوائف الدينية التي تعترف لها الدولة بشخصية اعتبارية. الاوقاف. الشركات التجارية والمدنية. (5) الجمعيات والمؤسسات المنشاة وفقا للاحكام التي ستاتي فيما بعد. (6) كل مجموعة من الاشخاص او الاموال تثبت لها الشخصية الاعتبارية بمقتضي نص في القانون."
+    ],
+    "metadata": {
+      "target_articles": [52],
+      "language": "ar",
+      "topic": "Juristic persons",
+      "query_type": "enumeration"
+    }
+  },
+  {
+    "question": "ما هي الحقوق والخصائص القانونية المقررة للشخص الاعتباري، وأين يقع موطنه القانوني؟",
+    "ground_truth": "يتمتع الشخص الاعتباري بجميع الحقوق عدا الملازمة للإنسان الطبيعي، وله ذمة مالية مستقلة، وأهلية يحددها سنده وقانونه، وحق التقاضي، ونائب يمثله. ويعتبر موطنه المكان الذي يوجد فيه مركز إدارته الفعلي، أو مركز إدارته المحلية في مصر للشركات الأجنبية.",
+    "expected_contexts": [
+      "الشخص الاعتباري يتمتع بجميع الحقوق الا ما كان منها ملازما لصفة الانسان الطبيعية، وذلك في الحدود التي قررها القانون. فيكون له: (ا) ذمة مالية مستقلة. (ب) اهلية في الحدود التي يعينها سند انشائه، او التي يقررها القانون. (ج) حق التقاضي. (د) موطن مستقل، ويعتبر موطنه المكان الذي يوجد فيه مركز ادارته، والشركات التي يكون مركزها الرئيسي في الخارج ولها نشاط في مصر يعتبر مركز ادارتها، بالنسبة الي القانون الداخلي، المكان الذي توجد فيه الادارة المحلية. ويكون له نائب يعبر عن ارادته."
+    ],
+    "metadata": {
+      "target_articles": [53],
+      "language": "ar",
+      "topic": "Juristic persons",
+      "query_type": "definition"
+    }
+  },
+  {
+    "question": "What legal provisions regulate associations under Article 60 of the Egyptian Civil Code?",
+    "ground_truth": "Article 60 of the Egyptian Civil Code has been repealed and contains no active legal provisions.",
+    "expected_contexts": [
+      "(this article has been repealed)"
+    ],
+    "metadata": {
+      "target_articles": [60],
+      "language": "en",
+      "topic": "Juristic persons",
+      "query_type": "repealed_status"
+    }
+  },
+  {
+    "question": "ما هي الأحكام القانونية الخاصة بالجمعيات المنصوص عليها في المادة 60 من القانون المدني المصري؟",
+    "ground_truth": "المادة 60 من القانون المدني المصري ملغاة ولا تحتوي على أي نصوص قانونية سارية.",
+    "expected_contexts": [
+      "(هذه المادة ملغاه)"
+    ],
+    "metadata": {
+      "target_articles": [60],
+      "language": "ar",
+      "topic": "Juristic persons",
+      "query_type": "repealed_status"
+    }
+  },
+  {
+    "question": "Under what circumstances is a contract entered into by an insane or mentally deranged person deemed void if executed prior to the registration of the interdiction order?",
+    "ground_truth": "An act entered into before the registration of the interdiction decision is void only if the state of insanity or mental derangement was commonly known at the time of contracting, or if the other party had actual knowledge of it.",
+    "expected_contexts": [
+      "An act entered into by a person suffering from insanity or mental derangement after the registration of the sentence of interdiction is null. An act done before the registration of the sentence of interdiction is null only if the state of insanity or derangement was a matter of common notoriety at the time the contract was entered into or if the other party had knowledge thereof."
+    ],
+    "metadata": {
+      "target_articles": [114],
+      "language": "en",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "When does intentional silence regarding contract terms constitute fraudulent misrepresentation under the Egyptian Civil Code?",
+    "ground_truth": "Intentional silence concerning a fact or surrounding circumstance constitutes fraudulent misrepresentation if it is demonstrated that the victim would not have concluded the contract had they been aware of that fact or circumstance[cite: 5].",
+    "expected_contexts": [
+      "A contract may be declared void on the grounds of fraudulent misrepresentation, when the artifices practiced by one of the parties, or by his representative are of such gravity that, but for them, the other party would not have concluded the contract. Intentional silence on the part of one of the parties as to a fact or as to the accompanying circumstances constitutes fraudulent misrepresentation if it can be shown that the contract would not have been concluded by the other party had he had knowledge thereof.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [125],
+      "language": "en",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "definition"
+    }
+  },
+  {
+    "question": "What judicial remedies exist when a party suffers from lesion due to unbridled passion or levity, and what is the deadline for filing such an action?",
+    "ground_truth": "If an extreme disparity in contractual obligations results from exploiting a party's obvious levity or unbridled passion, the judge may annul the contract or reduce the party's obligations upon request, provided the action is brought within one year from the date of the contract[cite: 5].",
+    "expected_contexts": [
+      "If the obligations of one of the contracting parties are out of all proportion to the advantages that he obtains from the contract or to the obligations of the other contracting party, and it is established that the party who has suffered the prejudice entered into the contract only as a result of the other party exploiting his obvious levity of character or his unbridled passion, the judge may, at the request of the party so prejudiced, annul the contract or reduce the obligations of such party. Proceedings instituted on such grounds shall be barred unless commenced within one year from the date of the contract. In a contract entered into for valuable consideration, the other party may avoid annulment proceedings by making such an offer as the judge may consider adequate compensation to cover the lesion.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [129],
+      "language": "en",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "Is an agreement dealing with the inheritance or succession of a living person legally valid?",
+    "ground_truth": "An agreement regarding the estate or succession of a living person is null and void, even if entered into with that person's consent, except in specific cases expressly provided for by law[cite: 5].",
+    "expected_contexts": [
+      "Things that may happen in the future may be the object of an obligation. An agreement with regard to the succession of a living person is void, even if he consents to such an agreement, except in cases provided for by law.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [131],
+      "language": "en",
+      "topic": "Elements of Contracts",
+      "subtopic": "Object",
+      "query_type": "boolean_rule"
+    }
+  },
+  {
+    "question": "Who can invoke the nullity of an absolutely void contract, can it be rectified by ratification, and when is the claim barred?",
+    "ground_truth": "Nullity of a void contract may be invoked by any interested person or raised by the court on its own initiative, cannot be cured by ratification, and prescribes after fifteen years from the conclusion of the contract[cite: 5].",
+    "expected_contexts": [
+      "When a contract is void, its nullity may be invoked by every person having an interest in the contract and such nullity may also be ordered by the court on its own initiative. Nullity cannot disappear by ratification of the contract. Nullity proceedings are prescribed after fifteen years from the date of the conclusion of the contract.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [141],
+      "language": "en",
+      "topic": "Elements of Contracts",
+      "subtopic": "Nullity",
+      "query_type": "enumeration"
+    }
+  },
+  {
+    "question": "متى تصح أعمال الإدارة الصادرة من الصبي المميز الذي أتم الثامنة عشرة من عمره؟",
+    "ground_truth": "تعتبر أعمال الإدارة الصادرة من الصبي المميز البالغ ثماني عشرة سنة صحيحة في الحدود القانونية المقررة إذا أُذن له في تسلم أمواله لإدارتها أو تسلمها بحكم القانون[cite: 5].",
+    "expected_contexts": [
+      "اذا بلغ الصبي المميز الثامنة عشرة من عمره واذن له في تسلم امواله لادارتها، او تسلمها بحكم القانون، كانت اعمال الادارة الصادرة منه صحيحة في الحدود التي رسمها القانون.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [112],
+      "language": "ar",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "متى تعين المحكمة مساعداً قضائياً للشخص، وما هو مآل تصرفه المنفرد بعد قيد هذا القرار؟",
+    "ground_truth": "يجوز للمحكمة تعيين مساعد قضائي للشخص إذا كان أصم أبكم أو أعمى أصم أو أعمى أبكم وتعذر عليه التعبير عن إرادته، ويقع باطلاً أو قابلاً للإبطال كل تصرف أُقرت فيه المساعدة إذا أبرمه دون عون المساعد بعد تسجيل القرار[cite: 5].",
+    "expected_contexts": [
+      "اذا كان الشخص اصم ابكم او اعمي اصم او اعمي ابكم، وتعذر عليه بسبب ذلك التعبير عن ارادته، جاز للمحكمة ان تعين له مساعدا قضائيا يعاونه في التصرفات التي تقتضي مصلحته فيها ذلك. ويكون قابلا للابطال كل تصرف من التصرفات التي تقررت المساعدة القضائية فيها، متي صدر من الشخص الذي تقررت مساعدته قضائيا بغير معاونة المساعد، اذا صدر التصرف بعد تسجيل قرار المساعدة.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [117],
+      "language": "ar",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "ما هي شروط إبطال العقد بسبب الإكراه وما هي المعايير والظروف المعتمدة في تقدير جسامته؟",
+    "ground_truth": "يبطل العقد للإكراه إذا أبرم تحت تأثير رهبة مبعوثة دون حق قائمة على خطر جسيم محدق يهدد النفس أو الجسم أو الشرف أو المال، ويراعى في تقديره جنس الشخص وسنه وحالته الاجتماعية والصحية[cite: 5].",
+    "expected_contexts": [
+      "يجوز ابطال العقد للاكراه اذا تعاقد شخص تحت سلطان رهبة بعثها المتعاقد الاخر في نفسه دون حق وكانت قائمة علي اساس. وتكون الرهبة قائمة علي اساس اذا كانت ظروف الحال تصور للطرف الذي يدعيها ان خطرا جسيما محدقا يهدده هو او غيره في النفس او الجسم او الشرف او المال. ويراعي في تقدير الاكراه جنس من وقع عليه هذا الاكراه وسنه وحالته الاجتماعية والصحية وكل ظرف اخر من شانه ان يؤثر في جسامة الاكراه.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [127],
+      "language": "ar",
+      "topic": "Elements of Contracts",
+      "subtopic": "Consent",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "ما هو الحكم القانوني إذا كان محل الالتزام نقوداً وتغيرت قيمتها ارتفاعاً أو هبوطاً وقت السداد؟",
+    "ground_truth": "إذا كان محل الالتزام نقوداً يلتزم المدين بالوفاء بمقدار عددها المسمى في العقد دون أي تأثر بتغير قيمتها صعوداً أو هبوطاً عند حلول وقت الوفاء[cite: 5].",
+    "expected_contexts": [
+      "اذا كان محل اللالتزام نقودا، التزم المدين بقدر عددها المذكور في العقد دون ان يكون لارتفاع قيمة هذه النقود او لانخفاضها وقت الوفاء اي اثر.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [134],
+      "language": "ar",
+      "topic": "Elements of Contracts",
+      "subtopic": "Object",
+      "query_type": "direct_factual"
+    }
+  },
+  {
+    "question": "ما هو الأثر المترتب على تقرير بطلان العقد أو إبطاله، وما هو الاستثناء المقرر لصالح ناقص الأهلية؟",
+    "ground_truth": "يترتب على البطلان أو الإبطال إعادة المتعاقدين إلى حالتهما السابقة أو التعويض عند التعذر، على ألا يلزم ناقص الأهلية إلا برد المنفعة الحقيقية العائدة عليه من تنفيذ العقد[cite: 5].",
+    "expected_contexts": [
+      "في حالتي ابطال العقد وبطلانه يعاد المتعاقدان الي الحالة التي كانا عليها قبل العقد فاذا كان هذا مستحيلا جاز الحكم بتعويض معادل. ومع ذلك لا يلزم ناقص الاهلية اذا ابطل العقد لنقص اهليته ان يرد غير ما عاد عليه من منفعة بسبب تنفيذ العقد.[cite: 5]"
+    ],
+    "metadata": {
+      "target_articles": [142],
+      "language": "ar",
+      "topic": "Elements of Contracts",
+      "subtopic": "Nullity",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "Under what circumstance may a creditor demand additional compensation on top of moratory interest?",
+    "ground_truth": "A creditor may claim supplementary damages in addition to interest if they establish that a loss exceeding the interest was caused by the debtor's bad faith[cite: 6].",
+    "expected_contexts": [
+      "A creditor may demand damages in addition to interest if he establishes that a loss, in excess of the interest, was due to bad faith on the part of the debtor[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [231],
+      "language": "en",
+      "topic": "Compensation in Lieu of Performance",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "What statutory restrictions apply to compounding unpaid interest and the maximum total interest a creditor can recover?",
+    "ground_truth": "Subject to commercial rules or practice, interest cannot be charged on outstanding interest, and the total interest collected by the creditor can never exceed the principal capital amount[cite: 6].",
+    "expected_contexts": [
+      "Subject to any commercial rules or practice to the contrary, interest does not run on outstanding interest and in no case shall the total interest that the creditor may collect exceed the amount of the capital[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [232],
+      "language": "en",
+      "topic": "Compensation in Lieu of Performance",
+      "query_type": "boolean_rule"
+    }
+  },
+  {
+    "question": "Under what legal grounds can a possessor exercise the right of retention over property in their custody?",
+    "ground_truth": "A person obligated to deliver an item may refuse to deliver it until the creditor performs a reciprocal obligation or provides sufficient security[cite: 6]. A possessor who incurred necessary or useful expenditures on the property may retain it until reimbursed, unless the duty of restitution arises from an unlawful act[cite: 6].",
+    "expected_contexts": [
+      "A person who is under an obligation to supply something, may refrain from performing his obligation so long as his creditor does not offer to perform an obligation incumbent on him arising out of the obligation of the debtor and connected therewith, or as long as the creditor does not supply adequate security to guarantee the performance of his obligation[cite: 6]. This right belongs especially to the possessor or holder of a thing, if he has incurred expenditure of a necessary or useful kind on the thing[cite: 6]. The possessor or holder may, in such a case, refuse to return the thing until he has been repaid the amount due to him, unless the obligation of restitution results from an unlawful act[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [246],
+      "language": "en",
+      "topic": "One of the Means of Security: the Right of Retention",
+      "query_type": "conditional"
+    }
+  },
+  {
+    "question": "What conditions govern a creditor exercising their debtor's rights of action through an oblique action, and where do the recovered proceeds go?",
+    "ground_truth": "Under Articles 235 and 236, a creditor may exercise non-personal, attachable rights of action in the debtor's name if they prove the debtor's inaction causes or aggravates insolvency, provided the debtor is joined in the suit[cite: 6]. The creditor acts as the debtor's representative, and all resulting proceeds enter the debtor's estate to serve as common security for all creditors[cite: 6].",
+    "expected_contexts": [
+      "Every creditor, even if his claim has not fallen due, may exercise in the name of his debtor all his debtor's rights of action save only those that are purely personal or cannot be attached[cite: 6]. The exercise by a creditor of the rights of his debtor is not admissible, unless the creditor proves that the debtor himself has not exercised such rights and that the debtor's failure to do so is such as to result in or increase his insolvency[cite: 6]. The creditor need not necessarily formally summon the debtor to exercise his rights but he must always join the debtor in the proceedings[cite: 6].",
+      "A creditor, in the exercise of his debtor's right, is deemed to be the debtor's representative[cite: 6]. The proceeds resulting from the exercise of such rights fall into the patrimonium of the debtor and serve as security to all his creditors[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [235, 236],
+      "language": "en",
+      "topic": "Means of Realizing the Rights of Creditors",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "What warranties does an assignor owe regarding the existence of the assigned right and the debtor's financial solvency?",
+    "ground_truth": "Under Articles 308 and 309, an assignor for value warrants the existence of the right at the time of assignment unless agreed otherwise, whereas a gratuitous assignor warrants nothing[cite: 6]. The assignor does not warrant the debtor's solvency unless expressly agreed, and such warranty covers solvency only at the date of the assignment unless stated otherwise[cite: 6].",
+    "expected_contexts": [
+      "In the case of an assignment for valuable consideration, the assignor, in the absence of an agreement to the contrary, only warrants the existence of the right assigned at the moment of the assignment[cite: 6]. When, however, the assignment is not for valuable consideration, the assignor does not even warrant the existence of the right[cite: 6].",
+      "An assignor does not warrant the solvency of the debtor unless such warranty is specifically stipulated[cite: 6]. If an assignor has warranted the solvency of the debtor, this warranty only applies, in the absence of agreement to the contrary, to the solvency of the debtor at the time of the assignment[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [308, 309],
+      "language": "en",
+      "topic": "The Assignment of a Right",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "كيف يتم توزيع عبء الإثبات بين الدائن والمدين عند الادعاء بإعسار الأخير؟",
+    "ground_truth": "يقتصر عبء الدائن على إثبات مقدار الديون المترتبة في ذمة مدينه، ويقع على عاتق المدين نفسه إثبات أن لديه أموالاً تساوي قيمة تلك الديون أو تفوقها[cite: 6].",
+    "expected_contexts": [
+      "اذا ادعي الدائن اعسار المدين فليس عليه الا ان يثبت مقدار ما في ذمته من ديون وعلي المدين نفسه ان يثبت ان له ما لا يساوي قيمة الديون او يزيد عليها[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [239],
+      "language": "ar",
+      "topic": "Means of Realizing the Rights of Creditors",
+      "query_type": "procedural"
+    }
+  },
+  {
+    "question": "ما هي حقوق الدائنين والخلف الخاص حسني النية بشأن العقد الصوري، ولمن تكون الأولوية عند تعارض مصالحهم؟",
+    "ground_truth": "يحق للدائنين والخلف الخاص حسني النية التمسك بالعقد الصوري أو بالعقد المستتر وإثبات الصورية بكافة الوسائل[cite: 6]. وفي حال حدوث تعارض بين من يتمسك بالعقد الظاهر ومن يتمسك بالعقد المستتر، تعطى الأولوية للمتمسكين بالعقد الظاهر[cite: 6].",
+    "expected_contexts": [
+      "اذا ابرم عقد صوري فلدائني المتعاقدين وللخلف الخاص متي كانوا حسني النية، ان يتمسكوا بالعقد الصوري، كما ان لهم ان يتمسكوا بالعقد المستتر ويثبتوا بجميع الوسائل صورية العقد الذي اضر بهم[cite: 6]. واذا تعارضت مصالح ذوي الشان، فتمسك بعضهم بالعقد الظاهر وتمسك الاخرون بالعقد المستتر، كانت الافضلية للاولين[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [244],
+      "language": "ar",
+      "topic": "Means of Realizing the Rights of Creditors",
+      "query_type": "comparative"
+    }
+  },
+  {
+    "question": "هل يتطلب نفاذ حوالة الحق رضاء المدين، وما هي الموانع التي تحول دون صحتها؟",
+    "ground_truth": "تتم حوالة الحق صحيحة دون الحاجة إلى رضاء المدين، إلا إذا وجد مانع يرجع إلى نص القانون، أو اتفاق المتعاقدين، أو طبيعة الالتزام ذاته[cite: 6].",
+    "expected_contexts": [
+      "يجوز للدائن ان يحول حقه الي شخص اخر، الا اذا حال دون ذلك نص القانون او اتفاق المتعاقدين او طبيعة اللالتزام وتتم الحوالة دون حاجة الي رضاء المدين[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [303],
+      "language": "ar",
+      "topic": "The Assignment of a Right",
+      "query_type": "direct_factual"
+    }
+  },
+  {
+    "question": "ما هي شروط الطعن في تصرفات المدين بعدم النفاذ، وكيف يختلف شرط الغش بين التصرف المعاوض والتصرف التبرعي؟",
+    "ground_truth": "وفقاً للمادتين 237 و238، يشترط أن يكون حق الدائن مستحق الأداء، وأن يكون التصرف قد أنقص حقوق المدين أو زاد التزاماته مسبباً إعساره أو زيادته[cite: 6]. وإذا كان التصرف بعوض يشترط انطواؤه على غش من المدين وعلم المتصرف له بهذا الإعسار، أما إذا كان تبرعاً فلا ينفذ في حق الدائن ولو كان المتصرف له حسن النية والمدين غير مرتكب للغش[cite: 6].",
+    "expected_contexts": [
+      "لكل دائن اصبح حقه مستحق الاداء، وصدر من مدينه تصرف ضار به ان يطلب عدم نفاذ هذا التصرف في حقه، اذا كان التصرف قد انقص من حقوق المدين او زاد في التزاماته وترتب عليه اعسار المدين او الزيادة في اعساره، وذلك متي توافرت الشروط المنصوص عليها في المادة التالية[cite: 6].",
+      "اذا كان تصرف المدين بعوض، اشترط لعدم نفاذه في حق الدائن ان يكون منطويا علي غش من المدين، وان يكون من صدر له التصرف علي علم بهذا الغش، ويكفي لاعتبار التصرف منطويا علي الغش ان يكون قد صدر من المدين وهو عالم انه معسر، كما يعتبر من صدر له التصرف عالما بغش المدين اذا كان قد علم ان هذا المدين معسر[cite: 6]. اما اذا كان التصرف تبرعا، فانه لا ينفذ في حق الدائن، ولو كان من صدر له التبرع حسن النية لو ثبت ان المدين لم يرتكب غشا[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [237, 238],
+      "language": "ar",
+      "topic": "Means of Realizing the Rights of Creditors",
+      "query_type": "multi_hop"
+    }
+  },
+  {
+    "question": "كيف تنعقد حوالة الدين قانوناً، وما هو شرط نفاذها في مواجهة الدائن وحكم سكوته عن الإقرار؟",
+    "ground_truth": "وفقاً للمادتين 315 و316، تنعقد حوالة الدين باتفاق بين المدين وشخص أجنبي يتحمل الالتزام عنه، ولا تكون نافذة في حق الدائن إلا إذا أقرها صراحة؛ فإذا أُخطر بالحوالة وحُدد له أجل معقول وانقضى دون رد، اعتبر سكوته رفضاً قانونياً لها[cite: 6].",
+    "expected_contexts": [
+      "تتم حوالة الدين باتفاق بين المدين وشخص اخر يتحمل الدين[cite: 6].",
+      "لا تكون الحوالة نافذة في حق الدائن الا اذا اقرها[cite: 6]. واذا قام المحال عليه او المدين الاصلي باعلان الحوالة الي الدائن، وعين له اجلا معقولا ليقر الحوالة ثم انقضي الاجل دون ان يصدر الاقرار، اعتبر سكوت الدائن رفضا للحوالة[cite: 6]."
+    ],
+    "metadata": {
+      "target_articles": [315, 316],
+      "language": "ar",
+      "topic": "Assignment of Debt",
+      "query_type": "multi_hop"
+    }
+  }
+
+
+
+]

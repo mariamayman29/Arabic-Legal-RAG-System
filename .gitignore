@@ -6,3 +6,10 @@ __pycache__
 .ruff_cache/
 .cache/
 Logs/
+data/qdrant_db/
+mlruns/
+eval/mlruns/
+mlflow.db
+eval/mlflow.db
+*.log
+eval/runs/
