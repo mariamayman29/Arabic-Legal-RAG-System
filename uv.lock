@@ -1322,7 +1322,7 @@ wheels = [
 [[package]]
 name = "eval"
 version = "0.1.0"
-source = { editable = "eval" }
+source = { virtual = "eval" }
 dependencies = [
     { name = "datasets" },
     { name = "langchain-google-genai" },
