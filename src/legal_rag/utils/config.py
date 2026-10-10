@@ -16,7 +16,9 @@ class Settings(BaseSettings):
     REPEALED_TEXT_AR: str = "(هذه المادة ملغاه)"
     REPEALED_TEXT_EN: str = "(this article has been repealed)"
 
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+    )
 
 
 settings = Settings()

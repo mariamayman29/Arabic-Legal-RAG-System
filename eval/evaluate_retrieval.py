@@ -6,7 +6,6 @@ sys.path.append(str(PROJECT_ROOT / "src"))
 
 import json
 import logging
-import os
 
 import mlflow
 import pandas as pd
