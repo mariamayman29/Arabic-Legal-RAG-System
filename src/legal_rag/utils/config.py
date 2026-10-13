@@ -10,14 +10,16 @@ class Settings(BaseSettings):
     PROCESSED_CORPUS_PATH: Path = PROJECT_ROOT / "data" / "corpus.json"
     GOLDEN_DATASET_PATH: Path = PROJECT_ROOT / "eval" / "golden_dataset.json"
     QDRANT_PATH: Path = PROJECT_ROOT / "data" / "qdrant_db"
-    LOG_PATH: Path = PROJECT_ROOT / "logs" / "chunking.log"
+    LOG_PATH: Path = PROJECT_ROOT / "logs" / "API.log"
     EVAL_LOG_PATH: Path = PROJECT_ROOT / "logs" / "evaluation.log"
     OCR_ZOOM_FACTOR: float = 2
     REPEALED_TEXT_AR: str = "(هذه المادة ملغاه)"
     REPEALED_TEXT_EN: str = "(this article has been repealed)"
+    OPENAI_API_KEY:str 
+
 
     model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+        env_file=(PROJECT_ROOT/".env"), env_file_encoding="utf-8", extra="ignore"
     )
 
 
