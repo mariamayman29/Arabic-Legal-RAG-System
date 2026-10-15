@@ -34,15 +34,17 @@ jobs:
       - name: Run tests & RAGAS evaluation
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGFUSE_PUBLIC_KEY: "dummy_public_key"
+          LANGFUSE_SECRET_KEY: "dummy_secret_key"
+
         run: |
           pytest tests/ -v
 
-      - name: Rebuild Vector Index
+      - name: pull Vector Index
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          # Ensure this points to your actual data ingestion script
-          python src/legal_rag/ingestion/ingest.py
+          dvc pull
 
       - name: Build Docker Image
         run: |
