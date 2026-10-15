@@ -1,0 +1,18 @@
+name: legal_rag_service
+service: "legal_rag.api.service:RAGService"
+labels:
+  owner: mariam
+  project: legal_rag
+include:
+  - "src/"
+  - "data/qdrant_db/"
+  - "requirements.txt"
+python:
+  requirements_txt: "./requirements.txt"
+envs:
+  - name: PYTHONPATH
+    value: "./src"
+exclude:
+  - "src/legal_rag/indexing/"
+  - "src/legal_rag/ingestion/"
+

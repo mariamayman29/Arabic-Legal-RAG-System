@@ -9,7 +9,7 @@ from qdrant_client.models import Distance, PointStruct, VectorParams
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 
-from legal_rag.schemas import ChunkMetadata, ChunkSchema
+from legal_rag.core.models import ChunkMetadata, ChunkSchema
 from legal_rag.utils.config import settings
 from legal_rag.utils.logging_config import configure_logging
 
