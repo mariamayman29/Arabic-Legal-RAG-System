@@ -1,28 +1,35 @@
+from dotenv import load_dotenv
+
+load_dotenv()
 import logging
-import os
 import re
 import time
 from contextlib import asynccontextmanager
+from pathlib import Path
 
+import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-from openai import APIConnectionError, APIError, APITimeoutError, RateLimitError
+from langfuse import Langfuse
+from langfuse.langchain import CallbackHandler
+from prometheus_client import Counter, make_asgi_app
 from qdrant_client import QdrantClient
-from qdrant_client.http.exceptions import UnexpectedResponse
-from qdrant_client.models import FieldCondition, Filter, MatchValue , MatchAny
 from sentence_transformers import SentenceTransformer
 
-from legal_rag.schemas import AskRequest, AskResponse
+from legal_rag.api.schemas import AskRequest, AskResponse
+from legal_rag.retrieval.retriever import COLLECTION_NAME, retrieve_legal_context
 from legal_rag.utils.config import settings
+from legal_rag.utils.helper import detect_language, extract_article_numbers
 from legal_rag.utils.logging_config import configure_logging
 
 configure_logging()
 logger = logging.getLogger(__name__)
 
-COLLECTION_NAME = "article_level_enriched_bgem3"
-SIMILARITY_THRESHOLD = 0.5
+
+INPUT_TOKENS = Counter("llm_input_tokens_total", "Total input tokens")
+OUTPUT_TOKENS = Counter("llm_output_tokens_total", "Total output tokens")
 
 FALLBACK_MESSAGE_AR = "أعتذر، لا يمكنني الإجابة على هذا السؤال لأنه يقع خارج النطاق المتاح في نصوص القانون المدني المصري المرفقة."
 FALLBACK_MESSAGE_EN = "I apologize, I cannot answer this question because it falls outside the scope available in the provided texts of the Egyptian Civil Code."
@@ -46,215 +53,171 @@ Mandatory Constraints:
 5. Refusal Protocol: If the question is out of scope or the provided articles do not contain sufficient information to answer, you must respond exclusively with this exact phrase, without any additions:
 "I apologize, I cannot answer this question because it falls outside the scope available in the provided texts of the Egyptian Civil Code." """
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+QDRANT_PATH = str(BASE_DIR / "data" / "qdrant_db")
 
-
-
-def detect_language(text: str) -> str:
-    if re.search(r"[\u0600-\u06FF]", text):
-        return "ar"
-    return "en"
-
-def extract_article_numbers(text: str) -> list[int]:
-    matches = re.findall(
-        r"(?:\barticle|\bart\.?|المادة|مادة|الماده|ماده)\s*(\d+)",
-        text,
-        re.IGNORECASE,
+def redact_pii(text: str) -> str:
+    text = re.sub(
+        r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", "[REDACTED EMAIL]", text
     )
-    return list({int(m) for m in matches})
+    text = re.sub(r"(?:\+20|0)?1[0125]\d{8}", "[REDACTED PHONE]", text)
+    return text
 
 
 rag_state = {}
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Initializing API services")
     start_time = time.time()
-
     try:
-        if not settings.OPENAI_API_KEY:
-            raise ValueError("OPENAI_API_KEY is missing from environment/config")
-
-        os.environ["HF_HUB_OFFLINE"] = "1"
         rag_state["retriever"] = SentenceTransformer("BAAI/bge-m3", device="cpu")
-        rag_state["qdrant"] = QdrantClient(path=str(settings.QDRANT_PATH))
+        rag_state["qdrant"] = QdrantClient(path=QDRANT_PATH)
         rag_state["generator"] = ChatOpenAI(
             model="gpt-4o-mini",
             api_key=settings.OPENAI_API_KEY,
             temperature=0.0,
         )
-        logger.info(f"API services initialized in {time.time() - start_time:.2f} seconds")
-    except (ValueError, OSError, RuntimeError) as e:
-        logger.critical(f"Failed to initialize API services during startup: {e}", exc_info=True)
-        raise RuntimeError(f"Startup initialization failed: {e}") from e
+        rag_state["langfuse"] = Langfuse()
+        rag_state["baseline_emb"] = rag_state["retriever"].encode(
+            "ما هي شروط صحة العقد في القانون المدني؟"
+        )
+        logger.info(
+            f"API services initialized in {time.time() - start_time:.2f} seconds"
+        )
+    except Exception as e:
+        logger.critical(f"Failed to initialize API services: {e}", exc_info=True)
+        raise RuntimeError(f"Startup failed: {e}") from e
 
-    try:
-        yield
-    finally:
-        logger.info("Shutting down API services")
-        if rag_state.get("qdrant") is not None:
-            rag_state["qdrant"].close()
+    yield
+
+    logger.info("Shutting down API services")
+    if rag_state.get("langfuse"):
+        rag_state["langfuse"].flush()
+    if rag_state.get("qdrant"):
+        rag_state["qdrant"].close()
 
 
 app = FastAPI(title="Egyptian Civil Code API", lifespan=lifespan)
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
 
 
 @app.get("/health")
 async def health_check():
     try:
-        qdrant_client = rag_state["qdrant"]
-        _ = rag_state["retriever"]
-
-        count_res = qdrant_client.count(
-            collection_name=COLLECTION_NAME,
-            exact=True,
+        count_res = rag_state["qdrant"].count(
+            collection_name=COLLECTION_NAME, exact=True
         )
         return {"status": "healthy", "documents_indexed": count_res.count}
-    except (KeyError, ValueError, RuntimeError, UnexpectedResponse) as e:
-        logger.error(f"Health check failed: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=503,
-            detail=f"Service unhealthy: {str(e)}",
-        ) from e
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"Service unhealthy: {e!s}") from e
 
 
 def get_production_prompt(lang: str) -> ChatPromptTemplate:
-    if lang == "ar":
-        return ChatPromptTemplate.from_messages([
-            ("system", PROMPT_AR),
-            ("user", "المواد القانونية المسترجعة:\n{context}\n\nالسؤال:\n{question}"),
-        ])
-    return ChatPromptTemplate.from_messages([
-        ("system", PROMPT_EN),
-        ("user", "Retrieved Legal Articles:\n{context}\n\nQuestion:\n{question}"),
-    ])
+    system_msg = PROMPT_AR if lang == "ar" else PROMPT_EN
+    user_msg = (
+        "المواد القانونية المسترجعة:\n{context}\n\nالسؤال:\n{question}"
+        if lang == "ar"
+        else "Retrieved Legal Articles:\n{context}\n\nQuestion:\n{question}"
+    )
+    return ChatPromptTemplate.from_messages(
+        [("system", system_msg), ("user", user_msg)]
+    )
 
 
 @app.post("/ask", response_model=AskResponse)
 async def ask_question(request: AskRequest):
     req_start_time = time.time()
-    logger.info(f"Received question: {request.question}")
+
+    query_emb = rag_state["retriever"].encode(request.question)
+    baseline = rag_state["baseline_emb"]
+    cosine_sim = np.dot(baseline, query_emb) / (
+        np.linalg.norm(baseline) * np.linalg.norm(query_emb)
+    )
+    logger.info(f"Data Drift Alert - Cosine similarity to baseline: {cosine_sim:.4f}")
 
     lang = detect_language(request.question)
     explicit_articles = extract_article_numbers(request.question)
 
     try:
-        q_vec = rag_state["retriever"].encode(
-            request.question, normalize_embeddings=True
-        ).tolist()
-        lang_condition = FieldCondition(key="language", match=MatchValue(value=lang))
+        contexts, sources, _semantic_scores = retrieve_legal_context(
+            qdrant_client=rag_state["qdrant"],
+            retriever=rag_state["retriever"],
+            question=request.question,
+            lang=lang,
+            explicit_articles=explicit_articles,
+        )
+        qdrant_error = None
+    except Exception as e: # noqa: BLE001
+        logger.error(f"Vector retrieval failed: {e}")
+        contexts, sources = [], []
+        qdrant_error = e
 
-        semantic_hits = rag_state["qdrant"].query_points(
-            collection_name=COLLECTION_NAME,
-            query=q_vec,
-            query_filter=Filter(must=[lang_condition]),
-            limit=4,
-        ).points
-
-        explicit_hits = []
-        if explicit_articles:
-            logger.info(f"Explicit article numbers detected: {explicit_articles}")
-            explicit_hits = rag_state["qdrant"].query_points(
-                collection_name=COLLECTION_NAME,
-                query=q_vec,
-                query_filter=Filter(
-                    must=[
-                        lang_condition,
-                        FieldCondition(
-                            key="article_number",
-                            match=MatchAny(any=explicit_articles),
-                        ),
-                    ]
-                ),
-                limit=len(explicit_articles),
-            ).points
-    except (KeyError, ValueError, RuntimeError, UnexpectedResponse) as e:
-        logger.error(f"Vector retrieval failed: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=500,
-            detail="Failed to retrieve legal articles from the vector database",
-        ) from e
-
-    contexts = []
-    sources = set()
-    seen_ids = set()
-
-    for hit in explicit_hits + semantic_hits:
-        if hit.id in seen_ids:
-            continue
-        is_explicit = hit.payload.get("article_number") in explicit_articles
-
-        if is_explicit or hit.score >= SIMILARITY_THRESHOLD:
-            seen_ids.add(hit.id)
-            content = hit.payload.get("content", "")
-            header = hit.payload.get("context_header")
-            if hit.payload.get("is_repealed", False):
-                content = f"[NOTE: THIS ARTICLE IS REPEALED / هذه المادة ملغاة]\n{content}"
-
-            source_name = (
-                f"Egyptian Civil Code, {header}"
-                if header
-                else f"Article {hit.payload.get('article_number')}"
-            )
-            contexts.append(f"[{source_name}]\n{content}")
-            sources.add(source_name)
-            logger.debug(f"Retrieved: {source_name} (Score: {hit.score:.3f})")
-        else:
-            logger.warning(
-                f"Chunk rejected. Score {hit.score:.3f} below threshold {SIMILARITY_THRESHOLD}"
-            )
-
-    if not contexts:
-        logger.info("No context met the similarity threshold. Returning fallback refusal")
+    if not contexts and not qdrant_error:
         fallback_msg = FALLBACK_MESSAGE_AR if lang == "ar" else FALLBACK_MESSAGE_EN
         return AskResponse(answer=fallback_msg, sources=[])
+
+    if qdrant_error:
+        raise HTTPException(status_code=500, detail="Database retrieval failed")
 
     prompt = get_production_prompt(lang=lang)
     chain = prompt | rag_state["generator"]
     context_str = "\n\n---\n\n".join(contexts)
 
+    handler = CallbackHandler()
+    trace_config = {
+        "callbacks": [handler],
+        "run_name": "legal-rag-ask",
+        "metadata": {"langfuse_tags": ["legal_rag_api"]},
+    }
+
     if request.stream:
+
         async def token_generator():
             try:
                 async for chunk in chain.astream(
-                    {"context": context_str, "question": request.question}
+                    {"context": context_str, "question": request.question},
+                    config=trace_config,
                 ):
+                    if hasattr(chunk, "usage_metadata") and chunk.usage_metadata:
+                        INPUT_TOKENS.inc(chunk.usage_metadata.get("input_tokens", 0))
+                        OUTPUT_TOKENS.inc(chunk.usage_metadata.get("output_tokens", 0))
                     yield chunk.content
-                yield "\n\n[Sources]:\n"
-                for s in list(sources):
-                    yield f"- {s}\n"
-                logger.info(
-                    f"Streaming request completed in {time.time() - req_start_time:.2f}s"
-                )
-            except RateLimitError as e:
-                logger.warning(f"OpenAI rate limit reached during stream: {e}")
-                yield "\n[Error: Rate limit exceeded. Please retry shortly.]"
-            except (APITimeoutError, APIConnectionError, APIError) as e:
-                logger.error(f"Streaming LLM generation failed: {e}", exc_info=True)
-                yield "\n[Error: Upstream language model failed while streaming response.]"
+            except Exception as e: # noqa: BLE001
+                logger.error(f"Streaming failed: {e}")
+                yield "\n[Error: Upstream language model failed]"
+            finally:
+                rag_state["langfuse"].flush()
+                logger.info(f"Langfuse Trace ID: {handler.last_trace_id}")
 
         return StreamingResponse(token_generator(), media_type="text/plain")
 
     try:
-        res = await chain.ainvoke({"context": context_str, "question": request.question})
+        res = await chain.ainvoke(
+            {"context": context_str, "question": request.question},
+            config=trace_config,
+        )
+        if hasattr(res, "response_metadata") and "token_usage" in res.response_metadata:
+            usage = res.response_metadata["token_usage"]
+            INPUT_TOKENS.inc(usage.get("prompt_tokens", 0))
+            OUTPUT_TOKENS.inc(usage.get("completion_tokens", 0))
+
         logger.info(f"JSON request completed in {time.time() - req_start_time:.2f}s")
+        logger.info(f"Langfuse Trace ID: {handler.last_trace_id}")
+
         is_llm_refusal = res.content.strip().startswith(("I apologize", "أعتذر"))
         final_sources = [] if is_llm_refusal else list(sources)
-        return AskResponse(answer=res.content, sources=final_sources)
-    except RateLimitError as e:
-        logger.warning(f"OpenAI rate limit exceeded: {e}")
+
+        rag_state["langfuse"].flush()
+
+        safe_answer = redact_pii(res.content)
+        return AskResponse(answer=safe_answer, sources=final_sources)
+
+    except Exception as e:
+        logger.error(f"LLM API error: {e}")
         raise HTTPException(
-            status_code=429,
-            detail="Rate limit exceeded with the LLM provider. Please try again",
-        ) from e
-    except (APITimeoutError, APIConnectionError) as e:
-        logger.error(f"OpenAI connection or timeout error: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=504,
-            detail="Upstream language model timed out or was unreachable",
-        ) from e
-    except APIError as e:
-        logger.error(f"OpenAI API error: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=502,
-            detail="Failed to generate an answer from the language model provider",
+            status_code=502, detail="Failed to generate an answer"
         ) from e

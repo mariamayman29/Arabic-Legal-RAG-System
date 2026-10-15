@@ -4,8 +4,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from legal_rag.core.models import ArticleSchema
 from legal_rag.ingestion.normalize_text import normalize_arabic, normalize_english
-from legal_rag.schemas import ArticleSchema
 from legal_rag.utils.config import settings
 from legal_rag.utils.logging_config import configure_logging
 

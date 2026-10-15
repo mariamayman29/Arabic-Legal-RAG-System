@@ -10,6 +10,8 @@ dependencies = [
     "datasets>=5.0.1",
     "langchain-google-genai>=4.4.0",
     "langchain-huggingface>=1.2.2",
+    "langfuse<3.0.0",
+    "mlflow>=3.17.1",
     "python-dotenv>=1.2.3",
     "ragas>=0.4.3",
     "sentence-transformers>=6.1.0",

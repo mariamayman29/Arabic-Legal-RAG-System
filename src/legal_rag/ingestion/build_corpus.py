@@ -6,6 +6,7 @@ from typing import Any
 import pymupdf
 from pydantic import ValidationError
 
+from legal_rag.core.models import ArticleSchema
 from legal_rag.ingestion.normalize_text import normalize_english
 from legal_rag.ingestion.ocr_engine import create_ocr_engine, ocr_arabic_cell
 from legal_rag.ingestion.trace_hierarchy import (
@@ -14,7 +15,6 @@ from legal_rag.ingestion.trace_hierarchy import (
     REPEALED_RANGE_RE,
     HierarchyTracker,
 )
-from legal_rag.schemas import ArticleSchema
 from legal_rag.utils.config import settings
 from legal_rag.utils.logging_config import configure_logging
 

@@ -15,11 +15,13 @@ class Settings(BaseSettings):
     OCR_ZOOM_FACTOR: float = 2
     REPEALED_TEXT_AR: str = "(هذه المادة ملغاه)"
     REPEALED_TEXT_EN: str = "(this article has been repealed)"
-    OPENAI_API_KEY:str 
-
+    OPENAI_API_KEY: str
+    LANGFUSE_PUBLIC_KEY: str
+    LANGFUSE_SECRET_KEY: str
+    LANGFUSE_HOST: str = "http://localhost:3001"
 
     model_config = SettingsConfigDict(
-        env_file=(PROJECT_ROOT/".env"), env_file_encoding="utf-8", extra="ignore"
+        env_file=(PROJECT_ROOT / ".env"), env_file_encoding="utf-8", extra="ignore"
     )
 
 
