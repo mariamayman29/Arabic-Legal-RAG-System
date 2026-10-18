@@ -1,0 +1,4 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = https://dagshub.com/mariamayman29/Arabic-Legal-RAG-System.dvc
