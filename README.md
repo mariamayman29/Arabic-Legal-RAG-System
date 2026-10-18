@@ -205,6 +205,7 @@ Compared via MLflow (`Legal_RAG_Retrieval_Benchmark` experiment), scored against
 | `article_level_raw` | one chunk per article | e5-small | | | |
 | `article_level_enriched` | + hierarchy header | e5-small | | | |
 | **`article_level_enriched_bgem3`** | + hierarchy header | **BGE-M3** | | | **winning configuration** |
+
 *see reports/evalutation_runs_mlflow*
 
 ### Generation: prompt comparison
