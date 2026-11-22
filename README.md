@@ -27,7 +27,7 @@ A bilingual (Arabic/English) Retrieval-Augmented Generation system over the Egyp
 The published Docker image (`mariiamayman/legal_rag_service:latest`) ships with the vector database and processed corpus already embedded — no local GPU, model downloads, or data pipeline run required to serve questions.
 
 ```bash
-git clone https://github.com/mariamayman29/Arabic-Legal-RAG-System.git && cd legal_rag
+git clone https://github.com/mariamayman29/Arabic-Legal-RAG-System.git && cd Arabic-Legal-RAG-System
 
 cp .env.example .env
 
@@ -199,14 +199,14 @@ Compared via MLflow (`Legal_RAG_Retrieval_Benchmark` experiment), scored against
 
 | Strategy | Chunking | Embedding model | Hit@3 | Recall@3 | MRR |
 |---|---|---|---|---|---|
-| `baseline_small_recursive` | 150 chars / 30 overlap | e5-small | | | |
-| `baseline_medium_recursive` | 300 chars / 50 overlap | e5-small | | | |
-| `baseline_large_recursive` | 500 chars / 100 overlap | e5-small | | | |
-| `article_level_raw` | one chunk per article | e5-small | | | |
-| `article_level_enriched` | + hierarchy header | e5-small | | | |
-| **`article_level_enriched_bgem3`** | + hierarchy header | **BGE-M3** | | | **winning configuration** |
+| `baseline_small_recursive` | 150 chars / 30 overlap | e5-small | 0.80|0.73|0.71|
+| `baseline_medium_recursive` | 300 chars / 50 overlap | e5-small |0.82 |0.75 | 0.74|
+| `baseline_large_recursive` | 500 chars / 100 overlap | e5-small |0.80 | 0.73|0.74 |
+| `article_level_raw` | one chunk per article | e5-small |0.80|0.73|0.74 |
+| `article_level_enriched` | + hierarchy header | e5-small |0.78|0.71 |0.76 |
+| **`article_level_enriched_bgem3`** | + hierarchy header | **BGE-M3** |0.93| 0.85| 0.85|
 
-*see reports/evalutation_runs_mlflow*
+*see reports/evaluation_runs_mlflow*
 
 ### Generation: prompt comparison
 
@@ -214,15 +214,15 @@ Compared via MLflow (`Legal_RAG_Prompt_Optimization` experiment), scored with RA
 
 | Prompt | Faithfulness | Answer Relevancy | Context Precision | Context Recall |
 |---|---|---|---|---|
-| `prompt_a_direct` | | | | |
-| `prompt_b_structured` | | | | |
+| `prompt_a_direct` |0.80|0.48|0.92|0.87 |
+| `prompt_b_structured` |0.86|0.58|0.94|0.87|
 
 *see reports/prompt_optimization_mlflow*
 
 Run the comparisons yourself:
 ```bash
-uv run python -m legal_rag.eval.evaluate_retrieval
-uv run python -m legal_rag.eval.evaluate_generation
+uv run python -m eval.evaluate_retrieval
+uv run python -m eval.evaluate_generation
 mlflow ui   # view both experiments at http://localhost:5000
 ```
 
@@ -274,9 +274,11 @@ stages:
 ## Observability & Production Monitoring
 
 - **Per-request tracing (Langfuse):** every `/ask` call produces a root span with a nested retrieval span and a nested LangChain generation span, so a slow or wrong answer can be traced back to whether retrieval or generation was the cause.
+**Langfuse Traces:** (*see reports/langfuse_dashboard.png*)
 - **PII redaction:** emails and Egyptian phone number formats are redacted from the final answer before it's returned.
 - **Data drift signal:** each incoming query's embedding is compared (cosine similarity) against a fixed baseline query embedding and logged — a sustained drop signals the query distribution has shifted from what the system was built and evaluated against.
 - **Infra metrics:** token usage counters are scraped by Prometheus and visualized in Grafana.
+**Grafana Dashboard:** (*see reports/grafana_dashboard.png*)
 - **Production RAGAS monitoring:** `evaluate_production.py` runs on a schedule, pulls recent traces tagged `legal_rag_api` from Langfuse, re-scores them with RAGAS, writes the scores back onto the original traces in Langfuse, and logs batch averages to a dedicated MLflow experiment — with an alert if any metric's average drops below 0.80.
 
 ---
